@@ -1,0 +1,45 @@
+package org.interview.vehicleregistration.model.dto.requests;
+
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Size;
+import lombok.*;
+
+import java.util.Objects;
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+public class AuthenticationRequest {
+    @Email(message = "Email is not formatted")
+    @NotEmpty(message = "Email is mandatory")
+    @NotBlank(message = "Email is mandatory")
+    private String accountId;
+    @Size(min = 8, message = "Password should be minimum 8 chars long")
+    @NotEmpty(message = "Password is mandatory")
+    @NotBlank(message = "Password is mandatory")
+    private String password;
+
+    @Override
+    public String toString() {
+        return "AuthenticationRequest{" +
+                "email='" + accountId + '\'' +
+                ", password='" + password + '\'' +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        AuthenticationRequest that = (AuthenticationRequest) o;
+        return Objects.equals(accountId, that.accountId) && Objects.equals(password, that.password);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(accountId, password);
+    }
+}
