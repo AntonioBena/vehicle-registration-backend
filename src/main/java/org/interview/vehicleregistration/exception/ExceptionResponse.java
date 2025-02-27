@@ -1,8 +1,10 @@
-package org.interview.vehicleregistration.model.dto.responses;
+package org.interview.vehicleregistration.exception;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
 
+import java.util.Map;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -10,12 +12,11 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
-public class ApiResponse<T> {
+public class ExceptionResponse {
     private boolean success;
-    private String message;
+    private Integer code;
     private String description;
     private String error;
-    private String password;
-    private String validUntil;
-    private T data;
+    private Set<String> validationErrors;
+    private Map<String, String> errors;
 }

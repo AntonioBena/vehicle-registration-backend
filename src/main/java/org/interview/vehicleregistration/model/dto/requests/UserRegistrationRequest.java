@@ -12,9 +12,11 @@ import lombok.*;
 @Builder //TODO optimize
 @EqualsAndHashCode
 @ToString
-public class RegistrationRequest {
+public class UserRegistrationRequest {
     @Email(message = "Email is not formatted")
     @NotEmpty(message = "Email is mandatory")
     @NotBlank(message = "Email is mandatory")
     private String accountId;
+    private String firstName;
+    private String lastName;
 }

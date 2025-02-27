@@ -1,10 +1,10 @@
-package org.interview.vehicleregistration.service;
+package org.interview.vehicleregistration.service.security;
 
 import org.interview.vehicleregistration.model.dto.requests.AuthenticationRequest;
-import org.interview.vehicleregistration.model.dto.requests.RegistrationRequest;
+import org.interview.vehicleregistration.model.dto.requests.UserRegistrationRequest;
 import org.interview.vehicleregistration.model.dto.responses.ApiResponse;
 
 public interface AuthenticationService {
-    ApiResponse<?> registerNewUser(RegistrationRequest request) throws Exception;
+    ApiResponse<?> registerNewUser(UserRegistrationRequest request) throws Exception;
     ApiResponse<?> authenticate(AuthenticationRequest request) throws Exception;
 }

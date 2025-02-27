@@ -3,7 +3,6 @@ package org.interview.vehicleregistration.model.dto.requests;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.Size;
 import lombok.*;
 
 import java.util.Objects;
@@ -18,7 +17,6 @@ public class AuthenticationRequest {
     @NotEmpty(message = "Email is mandatory")
     @NotBlank(message = "Email is mandatory")
     private String accountId;
-    @Size(min = 8, message = "Password should be minimum 8 chars long")
     @NotEmpty(message = "Password is mandatory")
     @NotBlank(message = "Password is mandatory")
     private String password;

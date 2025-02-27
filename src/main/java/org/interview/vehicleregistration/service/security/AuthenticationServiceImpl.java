@@ -1,4 +1,4 @@
-package org.interview.vehicleregistration.service;
+package org.interview.vehicleregistration.service.security;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -7,7 +7,7 @@ import org.interview.vehicleregistration.configuration.ApplicationProperties;
 import org.interview.vehicleregistration.exception.custom.RegisteredUserException;
 import org.interview.vehicleregistration.model.dto.UserDto;
 import org.interview.vehicleregistration.model.dto.requests.AuthenticationRequest;
-import org.interview.vehicleregistration.model.dto.requests.RegistrationRequest;
+import org.interview.vehicleregistration.model.dto.requests.UserRegistrationRequest;
 import org.interview.vehicleregistration.model.dto.responses.ApiResponse;
 import org.interview.vehicleregistration.model.user.UserEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -56,6 +56,8 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         var authenticatedUserDto = UserDto.builder()
                 .id(foundUser.getId().toString())
                 .email(foundUser.getEmail())
+                .firstName(foundUser.getFirstName())
+                .lastName(foundUser.getLastName())
                 .createdAt(foundUser.getCreatedAt())
                 .build();
         return ApiResponse
@@ -67,9 +69,9 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     }
 
     @Override
-    public ApiResponse<?> registerNewUser(RegistrationRequest request) {
+    public ApiResponse<?> registerNewUser(UserRegistrationRequest request) {
         log.info("Registering new user with request: {}", request);
-        if (userRepository.existsByEmail(request.getAccountId())) {
+        if (userRepository.existsByEmail(request.getAccountId())) { //TODO can be in some object Exception checker or something
             log.error("User with email {} already exists", request.getAccountId());
             throw new RegisteredUserException("User already registered!");
         }
@@ -77,6 +79,8 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         var plainPassword = generatePlainPassword();
 
         var newAccount = UserEntity.builder()
+                .firstName(request.getFirstName())
+                .lastName(request.getLastName())
                 .email(request.getAccountId())
                 .password(
                         passwordEncoder.encode(plainPassword)
