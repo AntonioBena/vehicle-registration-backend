@@ -6,6 +6,8 @@ import lombok.Setter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 
+import java.util.List;
+
 @Getter
 @Setter
 @RequiredArgsConstructor
@@ -22,4 +24,13 @@ public class ApplicationProperties {
 
     @Value("${application.security.generated.password.right.limit}")
     private int generatedPasswordRightLimit;
+
+    @Value("${application.security.custom.header}")
+    private String applicationSecurityCustomHeader;
+
+    @Value("${application.security.allowed.origin}")
+    private String allowedOrigins;
+
+    @Value("${local.date.formmaters}")
+    private List<String> dateFormatters;
 }
