@@ -99,7 +99,6 @@ public class UserEntity implements Serializable, UserDetails, Principal {
                 ", createdAt=" + createdAt +
                 ", enabled=" + enabled +
                 ", accountLocked=" + accountLocked +
-                ", vehicles=" + vehicles +
                 ", role=" + role +
                 '}';
     }
@@ -108,11 +107,14 @@ public class UserEntity implements Serializable, UserDetails, Principal {
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         UserEntity that = (UserEntity) o;
-        return enabled == that.enabled && accountLocked == that.accountLocked && Objects.equals(id, that.id) && Objects.equals(firstName, that.firstName) && Objects.equals(lastName, that.lastName) && Objects.equals(email, that.email) && Objects.equals(password, that.password) && Objects.equals(createdAt, that.createdAt) && Objects.equals(vehicles, that.vehicles) && role == that.role;
+        return enabled == that.enabled && accountLocked == that.accountLocked && Objects.equals(id, that.id) &&
+                Objects.equals(firstName, that.firstName) && Objects.equals(lastName, that.lastName) &&
+                Objects.equals(email, that.email) && Objects.equals(password, that.password) &&
+                Objects.equals(createdAt, that.createdAt) && role == that.role;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, firstName, lastName, email, password, createdAt, enabled, accountLocked, vehicles, role);
+        return Objects.hash(id, firstName, lastName, email, password, createdAt, enabled, accountLocked, role);
     }
 }
