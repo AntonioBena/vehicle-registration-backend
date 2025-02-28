@@ -17,6 +17,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -49,17 +50,9 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         log.info("User authenticated successfully! {}", authentication.getPrincipal());
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
-        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
 
-        var foundUser = userRepository.findByEmail(userDetails.getUsername()).get();
+        var authenticatedUserDto = revealAuthenticatedUserAndMapToDto(authentication);
 
-        var authenticatedUserDto = UserDto.builder()
-                .id(foundUser.getId().toString())
-                .email(foundUser.getEmail())
-                .firstName(foundUser.getFirstName())
-                .lastName(foundUser.getLastName())
-                .createdAt(foundUser.getCreatedAt())
-                .build();
         return ApiResponse
                 .builder()
                 .success(true)
@@ -68,15 +61,30 @@ public class AuthenticationServiceImpl implements AuthenticationService {
                 .build();
     }
 
+    private UserDto revealAuthenticatedUserAndMapToDto(Authentication authentication) {
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+
+        var foundUser = userRepository.findByEmail(userDetails.getUsername())
+                .orElseThrow(() -> new UsernameNotFoundException("Can not find logged in user: " + userDetails.getUsername()));
+
+        return UserDto.builder()
+                .id(foundUser.getId().toString())
+                .email(foundUser.getEmail())
+                .firstName(foundUser.getFirstName())
+                .lastName(foundUser.getLastName())
+                .createdAt(foundUser.getCreatedAt())
+                .build();
+    }
+
     @Override
     public ApiResponse<?> registerNewUser(UserRegistrationRequest request) {
         log.info("Registering new user with request: {}", request);
-        if (userRepository.existsByEmail(request.getAccountId())) { //TODO can be in some object Exception checker or something
+        if (userRepository.existsByEmail(request.getAccountId())) {
             log.error("User with email {} already exists", request.getAccountId());
             throw new RegisteredUserException("User already registered!");
         }
 
-        var plainPassword = generatePlainPassword();
+        var plainPassword = generatePlainTextPassword();
 
         var newAccount = UserEntity.builder()
                 .firstName(request.getFirstName())
@@ -102,7 +110,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
                 .build();
     }
 
-    private String generatePlainPassword() {
+    private String generatePlainTextPassword() {
         Random random = new Random();
 
         return random.ints(appProperties.getGeneratedPasswordLeftLimit(),
@@ -119,15 +127,3 @@ public class AuthenticationServiceImpl implements AuthenticationService {
                 .toString();
     }
 }
-
-// TODO Parametri su sljedeći:
-//- success: true|false
-//- description: npr. Proslijeđeni account
-//ID već postoji.
-//- password: Automatski generisana
-//lozinka dužine 8 alfanumeričkih
-//znakova
-//Primjer:
-//{ success: true, description: „Vaš račun
-//je uspješno otvoren“, password:
-//„A12x4ttr“ }

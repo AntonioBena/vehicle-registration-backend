@@ -25,12 +25,12 @@ public class ApplicationProperties {
     @Value("${application.security.generated.password.right.limit}")
     private int generatedPasswordRightLimit;
 
-    @Value("${application.security.custom.header}")
-    private String applicationSecurityCustomHeader;
+    @Value("${application.security.header.registration-code}")
+    private String registrationCodeCustomHeader;
 
     @Value("${application.security.allowed.origin}")
     private String allowedOrigins;
 
-    @Value("${local.date.formmaters}")
-    private List<String> dateFormatters;
+    @Value("${local.date.pattern}")
+    private String datePattern;
 }

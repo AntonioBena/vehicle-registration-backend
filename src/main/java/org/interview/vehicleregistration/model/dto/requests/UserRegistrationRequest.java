@@ -5,13 +5,13 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.*;
 
+import java.util.Objects;
+
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder //TODO optimize
-@EqualsAndHashCode
-@ToString
+@Builder
 public class UserRegistrationRequest {
     @Email(message = "Email is not formatted")
     @NotEmpty(message = "Email is mandatory")
@@ -19,4 +19,25 @@ public class UserRegistrationRequest {
     private String accountId;
     private String firstName;
     private String lastName;
+
+    @Override
+    public String toString() {
+        return "UserRegistrationRequest{" +
+                "accountId='" + accountId + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        UserRegistrationRequest that = (UserRegistrationRequest) o;
+        return Objects.equals(accountId, that.accountId) && Objects.equals(firstName, that.firstName) && Objects.equals(lastName, that.lastName);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(accountId, firstName, lastName);
+    }
 }

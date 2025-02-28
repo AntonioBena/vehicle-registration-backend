@@ -16,7 +16,6 @@ public class UserDto {
     private String firstName;
     private String lastName;
     private LocalDateTime createdAt;
-    private VehicleDto vehicle;
 
     @Override
     public String toString() {

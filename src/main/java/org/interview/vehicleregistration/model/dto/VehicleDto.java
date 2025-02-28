@@ -2,7 +2,7 @@ package org.interview.vehicleregistration.model.dto;
 
 import lombok.*;
 
-import java.time.LocalDateTime;
+import java.util.Objects;
 
 @Getter
 @Setter
@@ -15,8 +15,29 @@ public class VehicleDto {
     private String vehicleModel;
     private String registrationId;
     private String registrationExpirationDate;
+    private UserDto user;
 
-//    Registarske oznake (String, obavezan)
-//- Datum isteka registracije (Date,
-//                             obavezan))
+    @Override
+    public String toString() {
+        return "VehicleDto{" +
+                "vehicleId='" + vehicleId + '\'' +
+                ", vehicleMake='" + vehicleMake + '\'' +
+                ", vehicleModel='" + vehicleModel + '\'' +
+                ", registrationId='" + registrationId + '\'' +
+                ", registrationExpirationDate='" + registrationExpirationDate + '\'' +
+                ", user=" + user +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        VehicleDto that = (VehicleDto) o;
+        return Objects.equals(vehicleId, that.vehicleId) && Objects.equals(vehicleMake, that.vehicleMake) && Objects.equals(vehicleModel, that.vehicleModel) && Objects.equals(registrationId, that.registrationId) && Objects.equals(registrationExpirationDate, that.registrationExpirationDate) && Objects.equals(user, that.user);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(vehicleId, vehicleMake, vehicleModel, registrationId, registrationExpirationDate, user);
+    }
 }

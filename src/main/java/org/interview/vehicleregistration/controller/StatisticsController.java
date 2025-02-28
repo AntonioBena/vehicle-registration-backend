@@ -17,21 +17,12 @@ public class StatisticsController {
         return statisticsService.getStatisticsByAccountId(accountId);
     }
 
-    @GetMapping
+    @GetMapping(path = "/all-accounts")
     public ApiResponse<?> getAllStatistics(
                                            @RequestParam(name = "page",
                                                    defaultValue = "0", required = false) int page,
                                            @RequestParam(name = "size",
-                                                   defaultValue = "5", required = false) int size) {
-        return statisticsService.getStatisticsByAccountId(page, size);
+                                                   defaultValue = "15", required = false) int size) {
+        return statisticsService.getAllAccountIdStatistics(page, size);
     }
 }
-
-//Server odgovara sa JSON objektom, odnosno
-//mapom ključ:vrijednost, gdje je ključ
-//
-//Page 3 of 4
-//accountId, a vrijednost broj automobila koje je
-//registrovao taj korisnik.
-//
-////statistics/accountID

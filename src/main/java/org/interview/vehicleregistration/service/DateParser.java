@@ -1,36 +1,33 @@
 package org.interview.vehicleregistration.service;
 
 import lombok.extern.slf4j.Slf4j;
+import org.interview.vehicleregistration.configuration.ApplicationProperties;
+import org.interview.vehicleregistration.exception.custom.DateParseException;
 
-import java.time.LocalDate;
+import java.time.*;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-import java.util.List;
-import java.util.Locale;
 
 @Slf4j
 public class DateParser {
 
-    private DateParser() {}
+    private static String formatPattern = "";
 
-    private static final List<DateTimeFormatter> inputFormatters = List.of(
-            DateTimeFormatter.ofPattern("yyyy-MM-dd"),         // 2024-08-14
-            DateTimeFormatter.ofPattern("dd/MM/yyyy"),         // 14/08/2024
-            DateTimeFormatter.ofPattern("dd MMMM yyyy", Locale.ENGLISH)  // 14 August 2024
-    );
-
-    public static String covertDateToString(LocalDate date) {
-        return date.format(inputFormatters.get(1));
+    private DateParser(ApplicationProperties appProperties) {
+        formatPattern = appProperties.getDatePattern();
     }
 
-    public static LocalDate parseDate(String toParse){
-        for (DateTimeFormatter formatter : inputFormatters) {
-            try {
-                return LocalDate.parse(toParse, formatter);
-            } catch (DateTimeParseException ignored) {
-                log.debug("Ca not parse: {}",toParse);
-            }
+    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern(formatPattern);
+
+    public static String covertDateToString(LocalDate date) {
+        return date.format(formatter);
+    }
+
+    public static LocalDate parseDate(String toParse) {
+        try {
+            return LocalDate.parse(toParse, DateTimeFormatter.ISO_LOCAL_DATE);
+        } catch (Exception ex) {
+            log.debug("Can not parse: {}", toParse);
+            throw new DateParseException("Invalid date format : " + toParse + " , " + ex.getMessage());
         }
-        throw new IllegalArgumentException("Invalid date format: " + toParse); //TODO DateParseException
     }
 }

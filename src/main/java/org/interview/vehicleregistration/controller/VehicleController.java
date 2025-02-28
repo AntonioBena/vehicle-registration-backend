@@ -10,19 +10,18 @@ import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping(path = "/register")
+@RequestMapping
 public class VehicleController {
 
     private final VehicleRegistrationServiceImpl vehicleRegistrationService;
 
-    @PostMapping
+    @PostMapping(path = "/register")
     public ApiResponse<?> createNewVehicle(@Valid @RequestBody VehicleDto request) throws Exception {
         return vehicleRegistrationService.registerNewVehicle(request);
     }
 
-    @GetMapping(path = "/registration/{registrationCode}")
-    public ApiResponse<?> checkRegistration(@PathVariable String registrationCode) throws Exception {
+    @GetMapping(path = "/registration/registrationCode")
+    public ApiResponse<?> checkRegistration(@RequestHeader("RegistrationCode") String registrationCode) {
         return vehicleRegistrationService.checkRegistration(registrationCode);
     }
-
 }

@@ -8,6 +8,7 @@ import lombok.*;
 import org.interview.vehicleregistration.model.user.UserEntity;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 @Getter
 @Setter
@@ -15,7 +16,7 @@ import java.time.LocalDate;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "vehicle") //TODO equals and to striong
+@Table(name = "vehicle")
 public class Vehicle {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,6 +30,30 @@ public class Vehicle {
     private LocalDate registrationExpirationDate;
 
     @ManyToOne
-    @JoinColumn(name = "user_entity_id")
+    @JoinColumn(name = "user_entity_id", referencedColumnName = "id")
     private UserEntity user;
+
+    @Override
+    public String toString() {
+        return "Vehicle{" +
+                "id=" + id +
+                ", vehicleMake='" + vehicleMake + '\'' +
+                ", vehicleModel='" + vehicleModel + '\'' +
+                ", registrationId='" + registrationId + '\'' +
+                ", registrationExpirationDate=" + registrationExpirationDate +
+                ", user=" + user +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Vehicle vehicle = (Vehicle) o;
+        return Objects.equals(id, vehicle.id) && Objects.equals(vehicleMake, vehicle.vehicleMake) && Objects.equals(vehicleModel, vehicle.vehicleModel) && Objects.equals(registrationId, vehicle.registrationId) && Objects.equals(registrationExpirationDate, vehicle.registrationExpirationDate) && Objects.equals(user, vehicle.user);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, vehicleMake, vehicleModel, registrationId, registrationExpirationDate, user);
+    }
 }

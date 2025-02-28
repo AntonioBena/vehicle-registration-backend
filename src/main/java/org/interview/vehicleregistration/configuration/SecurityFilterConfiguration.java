@@ -54,7 +54,10 @@ public class SecurityFilterConfiguration {
         configuration.setAllowedMethods(
                 Arrays.asList(GET.name(), PUT.name(), POST.name(), DELETE.name(), OPTIONS.name()));
         configuration.setAllowedHeaders(
-                Arrays.asList(appProperties.getApplicationSecurityCustomHeader() , HttpHeaders.AUTHORIZATION, HttpHeaders.CONTENT_TYPE));
+                Arrays.asList(
+                        appProperties.getRegistrationCodeCustomHeader(),
+                        HttpHeaders.AUTHORIZATION, HttpHeaders.CONTENT_TYPE)
+        );
         configuration.setAllowCredentials(true);
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
