@@ -39,7 +39,7 @@ class StatisticsControllerTest extends BaseTest {
         request.setRegistrationId("registrationId");
         request.setVehicleModel("model");
         request.setVehicleMake("make");
-        request.setRegistrationExpirationDate("2025-08-25");
+        request.setRegistrationExpirationDate("2025-03-13T23:00:00.000Z");
 
         mockMvc.perform(post("/register")
                         .contentType(MediaType.APPLICATION_JSON)
