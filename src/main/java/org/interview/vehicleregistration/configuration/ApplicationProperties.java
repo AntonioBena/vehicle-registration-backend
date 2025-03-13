@@ -33,4 +33,7 @@ public class ApplicationProperties {
 
     @Value("${local.date.pattern}")
     private String datePattern;
+
+    @Value("${validator.email.regex}")
+    private String emailRegex;
 }

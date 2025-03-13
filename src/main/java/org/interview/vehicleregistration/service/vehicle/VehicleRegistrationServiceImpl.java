@@ -21,7 +21,6 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 
-import static org.interview.vehicleregistration.service.DateParser.covertDateToString;
 import static org.interview.vehicleregistration.service.DateParser.parseDate;
 
 @RequiredArgsConstructor
@@ -95,16 +94,16 @@ public class VehicleRegistrationServiceImpl implements VehicleRegistrationServic
         String message = isValid ? "Vehicle registration is valid" : "Vehicle registration is not valid";
 
         return
-                buildValidationResponse(message, vehicle.getRegistrationExpirationDate());
+                buildValidationResponse(message, vehicle.getRegistrationExpirationDate().toString());
     }
 
 
-    private ApiResponse<?> buildValidationResponse(String message, LocalDate validUntil) {
+    private ApiResponse<?> buildValidationResponse(String message, String validUntil) {
         return ApiResponse
                 .builder()
                 .success(true)
                 .message(message)
-                .validUntil(covertDateToString(validUntil))
+                .validUntil(validUntil)
                 .build();
     }
 }

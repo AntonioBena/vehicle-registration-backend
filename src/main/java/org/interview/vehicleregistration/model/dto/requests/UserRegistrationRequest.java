@@ -1,9 +1,9 @@
 package org.interview.vehicleregistration.model.dto.requests;
 
-import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.*;
+import org.interview.vehicleregistration.validation.EmailValidator;
 
 import java.util.Objects;
 
@@ -13,7 +13,7 @@ import java.util.Objects;
 @AllArgsConstructor
 @Builder
 public class UserRegistrationRequest {
-    @Email(message = "Email is not formatted")
+    @EmailValidator(message = "Email is not formatted correctly!")
     @NotEmpty(message = "Email is mandatory")
     @NotBlank(message = "Email is mandatory")
     private String accountId;
