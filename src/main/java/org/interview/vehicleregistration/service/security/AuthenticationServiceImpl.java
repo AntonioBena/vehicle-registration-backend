@@ -57,7 +57,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
                 .builder()
                 .success(true)
                 .description("User authenticated successfully")
-                .data(authenticatedUserDto) // returning user to set wellcome message
+                .data(authenticatedUserDto)
                 .build();
     }
 
@@ -95,7 +95,9 @@ public class AuthenticationServiceImpl implements AuthenticationService {
                 )
                 .accountLocked(false)
                 .enabled(
-                        appProperties.isCreateEnabledUsers()
+                        appProperties
+                                .getSecurity()
+                                .isCreateEnabledUsers()
                 )
                 .role(USER)
                 .createdAt(LocalDateTime.now())
@@ -113,12 +115,25 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     private String generatePlainTextPassword() {
         Random random = new Random();
 
-        return random.ints(appProperties.getGeneratedPasswordLeftLimit(),
-                        appProperties.getGeneratedPasswordRightLimit() + 1)
+        return random.ints(
+                        appProperties
+                                .getSecurity()
+                                .getPasswordGenerator()
+                                .passwordLimits()
+                                .left(),
+                        appProperties
+                                .getSecurity()
+                                .getPasswordGenerator()
+                                .passwordLimits()
+                                .right() + 1)
                 .filter(i ->
                         (i <= 57 || i >= 65) && (i <= 90 || i >= 97)
                 )
-                .limit(appProperties.getGeneratedPasswordLength())
+                .limit(
+                        appProperties
+                                .getSecurity()
+                                .getPasswordGenerator()
+                                .passwordLength())
                 .collect(
                         StringBuilder::new,
                         StringBuilder::appendCodePoint,

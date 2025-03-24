@@ -66,14 +66,3 @@ public class StatisticsServiceImpl {
         );
     }
 }
-
-//TODO Server odgovara sa JSON objektom, odnosno -  primjer izgleda kao mapa gdje poyivam sve korisnike i mapiram korisnik : brojRegVozila
-// mapom ključ:vrijednost, gdje je ključ
-// accountId, a vrijednost broj automobila koje je
-// registrovao taj korisnik.
-// Primjer:
-//{
-//‘testni.test@test.com’: 10,
-//‘testni.test1@test.com’: 3,
-//‘testni.test2@test.com’: 42
-//}

@@ -1,4 +1,4 @@
-package org.interview.vehicleregistration.validation;
+package org.interview.vehicleregistration.validation.email;
 
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
@@ -10,7 +10,7 @@ import java.lang.annotation.*;
 @Target({ElementType.FIELD, ElementType.PARAMETER})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface EmailValidator {
-    String message() default "Email malformed!";
+    String message() default "Email Malformed!";
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
 }

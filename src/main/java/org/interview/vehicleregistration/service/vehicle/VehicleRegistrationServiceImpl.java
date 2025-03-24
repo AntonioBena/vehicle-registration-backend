@@ -97,7 +97,6 @@ public class VehicleRegistrationServiceImpl implements VehicleRegistrationServic
                 buildValidationResponse(message, vehicle.getRegistrationExpirationDate().toString());
     }
 
-
     private ApiResponse<?> buildValidationResponse(String message, String validUntil) {
         return ApiResponse
                 .builder()

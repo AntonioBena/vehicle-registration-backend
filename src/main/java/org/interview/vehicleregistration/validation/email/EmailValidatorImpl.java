@@ -1,4 +1,4 @@
-package org.interview.vehicleregistration.validation;
+package org.interview.vehicleregistration.validation.email;
 
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
@@ -13,7 +13,11 @@ public class EmailValidatorImpl implements ConstraintValidator<EmailValidator, S
 
     @Override
     public boolean isValid(String emailField, ConstraintValidatorContext cxt) {
-        Pattern pattern = Pattern.compile(appProperties.getEmailRegex());
+        Pattern pattern = Pattern.compile(
+                appProperties
+                        .getValidation()
+                        .emailRegex()
+        );
         return emailField != null && pattern.matcher(emailField).matches();
     }
 }

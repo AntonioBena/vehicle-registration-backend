@@ -3,7 +3,7 @@ package org.interview.vehicleregistration.model.dto.requests;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.*;
-import org.interview.vehicleregistration.validation.EmailValidator;
+import org.interview.vehicleregistration.validation.email.EmailValidator;
 
 import java.util.Objects;
 

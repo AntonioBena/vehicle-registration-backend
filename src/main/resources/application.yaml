@@ -1,0 +1,46 @@
+spring:
+  application:
+    name: ${APPLICATION_NAME}
+  banner:
+    mode: ${SPRING_BANNER_ENABLED}
+  jackson:
+    time-zone: ${JACKSON_TIMEZONE}
+  datasource:
+    driverClassName: ${SPRING_DATASOURCE_DRIVER}
+    url: ${SPRING_DATASOURCE_URL}
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
+  h2:
+    console:
+      enabled: ${SPRING_DATASOURCE_CONSOLE_ENABLED}
+  jpa:
+    database-platform: ${SPRING_JPA_DIALECT}
+    hibernate:
+      ddl-auto: ${SPRING_JPA_DDL}
+    show-sql: ${SPRING_JPA_SHOW_SQL}
+server:
+  port: ${SPRING_APPLICATION_SERVER_PORT}
+  servlet:
+    context-path: ${SPRING_APPLICATION_CONTEXT_PATH}
+
+application:
+  security:
+    password-generator:
+      password-length: 8
+      password-limits:
+        left: ${PASSWORD_GENERATOR_LEFT_LIMIT}
+        right: ${PASSWORD_GENERATOR_RIGHT_LIMIT}
+    create-enabled-users: ${CREATE_ENABLED_USERS}
+    allowed-origins: ${ALLOWED_ORIGINS}
+    allowed-headers: ${ALLOWED_HEADERS}
+    allowed-methods: ${ALLOWED_METHODS}
+    request-matchers: ${REQUEST_MATCHERS}
+    cors-configuration:
+      pattern: ${CORS_CONFIG_PATTERN}
+    csrf-enabled: ${CSRF_ENABLED}
+  date:
+    format: ${DATE_FORMAT}
+  validation:
+    email-regex: ${EMAIL_REGEX}
+    date-regex: ${DATE_REGEX}
+    registration-number-regex: ${REG_NUMBER_REGEX}

@@ -1,6 +1,7 @@
 package org.interview.vehicleregistration.model.dto;
 
 import lombok.*;
+import org.interview.vehicleregistration.validation.date.DateValidator;
 
 import java.util.Objects;
 
@@ -14,6 +15,7 @@ public class VehicleDto {
     private String vehicleMake;
     private String vehicleModel;
     private String registrationId;
+    @DateValidator(message = "Date pattern is not matched")
     private String registrationExpirationDate;
     private UserDto user;
 
@@ -33,7 +35,11 @@ public class VehicleDto {
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         VehicleDto that = (VehicleDto) o;
-        return Objects.equals(vehicleId, that.vehicleId) && Objects.equals(vehicleMake, that.vehicleMake) && Objects.equals(vehicleModel, that.vehicleModel) && Objects.equals(registrationId, that.registrationId) && Objects.equals(registrationExpirationDate, that.registrationExpirationDate) && Objects.equals(user, that.user);
+        return Objects.equals(vehicleId, that.vehicleId) && Objects.equals(vehicleMake, that.vehicleMake)
+                && Objects.equals(vehicleModel, that.vehicleModel)
+                && Objects.equals(registrationId, that.registrationId)
+                && Objects.equals(registrationExpirationDate, that.registrationExpirationDate) &&
+                Objects.equals(user, that.user);
     }
 
     @Override
