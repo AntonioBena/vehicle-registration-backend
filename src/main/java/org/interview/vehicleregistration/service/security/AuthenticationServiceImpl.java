@@ -1,7 +1,7 @@
 package org.interview.vehicleregistration.service.security;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import lombok.extern.log4j.Log4j2;
 import org.interview.vehicleregistration.repository.UserRepository;
 import org.interview.vehicleregistration.configuration.ApplicationProperties;
 import org.interview.vehicleregistration.exception.custom.RegisteredUserException;
@@ -26,7 +26,7 @@ import java.util.Random;
 
 import static org.interview.vehicleregistration.model.user.UserRole.USER;
 
-@Slf4j
+@Log4j2
 @RequiredArgsConstructor
 @Service
 public class AuthenticationServiceImpl implements AuthenticationService {

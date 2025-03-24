@@ -1,12 +1,12 @@
 package org.interview.vehicleregistration.service;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import lombok.extern.log4j.Log4j2;
 import org.interview.vehicleregistration.exception.custom.DateParseException;
 
 import java.time.*;
 
-@Slf4j
+@Log4j2
 @RequiredArgsConstructor
 public abstract class DateParser {
 

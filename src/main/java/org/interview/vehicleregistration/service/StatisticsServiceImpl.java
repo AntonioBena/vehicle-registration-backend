@@ -1,7 +1,7 @@
 package org.interview.vehicleregistration.service;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import lombok.extern.log4j.Log4j2;
 import org.interview.vehicleregistration.model.dto.responses.ApiResponse;
 import org.interview.vehicleregistration.model.dto.responses.PageResponse;
 import org.interview.vehicleregistration.model.user.UserEntity;
@@ -17,8 +17,8 @@ import org.springframework.stereotype.Service;
 import java.util.HashMap;
 import java.util.Map;
 
+@Log4j2
 @RequiredArgsConstructor
-@Slf4j
 @Service
 public class StatisticsServiceImpl {
 

@@ -2,7 +2,7 @@ package org.interview.vehicleregistration.service.vehicle;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import lombok.extern.log4j.Log4j2;
 import org.interview.vehicleregistration.exception.custom.RegistrationDateIsNotPresentException;
 import org.interview.vehicleregistration.exception.custom.RegistrationEmptyException;
 import org.interview.vehicleregistration.exception.custom.VehicleExistsException;
@@ -24,7 +24,7 @@ import java.time.LocalDate;
 import static org.interview.vehicleregistration.service.DateParser.parseDate;
 
 @RequiredArgsConstructor
-@Slf4j
+@Log4j2
 @Service
 public class VehicleRegistrationServiceImpl implements VehicleRegistrationService {
 
